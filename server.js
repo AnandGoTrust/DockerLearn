@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
     res.json({
-      message: "I have made this docker compose to runsdfghjkldfgjkl; ",
+      message: "I have made this docker compose to runsdfghjkldfgjklfjhfljajhghjglhaghgak; ",
       time: result.rows[0],
     });
   } catch (err) {
