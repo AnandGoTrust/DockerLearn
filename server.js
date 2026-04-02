@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
     res.json({
-      message: "final check bina down kiye chal raha hai ki nahi new updaye reflect ho rahe hai  ",
+      message: "final check bina down kiye chal ",
       time: result.rows[0],
     });
   } catch (err) {
