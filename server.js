@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
     res.json({
-      message: "final check bina down kiye chal zxcvnm build banaye h aaj date 06/04/2026 ke aage local mein chal rha h",
+      message: "sab kuch naya h abhi se aur naya hi rahea>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",
       time: result.rows[0],
     });
   } catch (err) {
