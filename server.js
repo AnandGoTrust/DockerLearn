@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
     res.json({
-      message: "sab kuch naya h abhi se aur naya hi rahea>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",
+      message: "something new is going to be happen and it would be like the new learning curve in the era of machine which we relaying the most",
       time: result.rows[0],
     });
   } catch (err) {
