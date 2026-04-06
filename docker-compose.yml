@@ -1,28 +1,67 @@
-# services:
-#         app:
-#             build:
-#             ports:
-#                 - "5000:5000"
-#             env_file:
-#                 - .env
-#             depends_on:
-#                 - postgres
-#         postgres:
-#             image:postgres:15
-#             restart:always
-#             env_file:
-#                 - .env
-#             ports:
-#                 - "5432:5432"
-#             volumes:
-#                 - postgres_data:var/lib/postgresql/data
-            
-#         volumes:
-#               postgres_data;
+# ============================================================================
+# DOCKER COMPOSE - DEVELOPMENT & PRODUCTION CONFIGURATION
+# ============================================================================
+# INSTRUCTIONS:
+# - For LOCAL DEVELOPMENT: Uncomment the DEVELOPMENT section below
+# - For PRODUCTION: Uncomment the PRODUCTION section below
+# - Comment out the section you're NOT using
+# 
+# Development (Local):   docker compose up --build
+# Production (Docker Hub): docker compose up
+# ============================================================================
 
+version: '3.8'
+
+# # ============================================================================
+# # ⚙️  DEVELOPMENT ENVIRONMENT (UNCOMMENT THIS SECTION FOR LOCAL)
+# # Builds app locally from Dockerfile. Best for development/testing.
+# # ============================================================================
+# services:
+#   postgres:
+#     image: postgres:15
+#     container_name: node-postgres-dev
+#     restart: always
+#     env_file:
+#       - .env
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U postgres"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#       start_period: 10s
+#     networks:
+#       - app-network
+
+#   app:
+#     # LOCAL BUILD - Builds image from local Dockerfile
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: node-app-dev
+#     ports:
+#       - "5000:5000"
+#     env_file:
+#       - .env
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#     restart: unless-stopped
+#     networks:
+#       - app-network
+
+# ============================================================================
+# 🚀 PRODUCTION ENVIRONMENT (COMMENT OUT ABOVE SECTION BEFORE USING THIS)
+# Uses pre-built image from Docker Hub (pushed by CI/CD pipeline).
+# Command: docker compose up
+# ============================================================================
 services:
   postgres:
     image: postgres:15
+    container_name: node-postgres-prod
     restart: always
     env_file:
       - .env
@@ -35,13 +74,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
     networks:
       - app-network
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # DOCKER HUB IMAGE - Pulled from Docker Hub
+    # Updated automatically by CI/CD on every push to main branch
+    image: anandgotrust/node-backend:latest
+    container_name: node-app-prod
     ports:
       - "5000:5000"
     env_file:
@@ -53,9 +94,18 @@ services:
     networks:
       - app-network
 
+# ============================================================================
+# PERSISTENT DATA VOLUMES (Shared for both Development & Production)
+# ============================================================================
 volumes:
   postgres_data:
+    driver: local
 
+# ============================================================================
+# CUSTOM NETWORK (Shared for both Development & Production)
+# Bridge network for inter-container communication
+# Allows app to connect to postgres using hostname 'postgres'
+# ============================================================================
 networks:
   app-network:
     driver: bridge
