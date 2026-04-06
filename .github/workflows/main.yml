@@ -24,14 +24,3 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/node-backend
-
-      - name: Deploy to Local Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd ~/Desktop/ReactHandsOn/NodejsBackend
-            docker compose pull
-            docker compose up -d
