@@ -48,6 +48,9 @@ app.get("/", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+app.get("/kahani", async (req, res) => {
+  res.send({message: "aao sunau pyaar ki ek kahani,ek tha docker ek tha render diwani"})
+})
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
