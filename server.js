@@ -51,8 +51,14 @@ app.get("/", async (req, res) => {
 app.get("/kahani", async (req, res) => {
   res.send({message: "aao sunau pyaar ki ek kahani,ek tha docker ek tha render diwani"})
 })
-app.get("pundina", async (req, res) => {
+app.get("/pudina", async (req, res) => {
   res.send({message: "lela pudina lela pudinaa aaye haaye >>>>"})
+})
+app.get("/dhania", async (req, res) => {
+  res.send({message: "lela dhania lela dhania aaye haaye >>>>"})
+})
+app.get("/tamatar", async (req, res) => {
+  res.send({message: "lela tamatar lela tamatar aaye haaye >>>>"})
 })
 
 app.listen(5000, () => {
