@@ -51,6 +51,9 @@ app.get("/", async (req, res) => {
 app.get("/kahani", async (req, res) => {
   res.send({message: "aao sunau pyaar ki ek kahani,ek tha docker ek tha render diwani"})
 })
+app.get("pundina", async (req, res) => {
+  res.send({message: "lela pudina lela pudinaa aaye haaye >>>>"})
+})
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
